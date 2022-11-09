@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CMP307_Software_Engineering___Scottish_Glen"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="247*"/>
+            <ColumnDefinition Width="270*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox Name="runnersListBox" Margin="4" Grid.RowSpan="2" Grid.Column="1"/>
+
+        <StackPanel Grid.Column="0">
+            <TextBlock Margin="10,6" FontSize="40">Scottish Glen</TextBlock>
+
+            <TextBlock Margin="10,6" FontSize="20">Scottish Glen Asset Tracking System</TextBlock>
+
+            <StackPanel Margin="10">
+                <TextBlock Text="Select Function" FontSize="15"/>
+
+                <Button Name="addAssetButton" Margin="100,10" Click="AddAssetButton">Add Asset</Button>
+            </StackPanel>
+
+            <TextBlock Name="errorTextBlock" Margin="10,6" FontSize="15"/>
+        </StackPanel>
     </Grid>
 </Window>
