@@ -27,7 +27,7 @@ namespace CMP307_Software_Engineering___Scottish_Glen
 
         private void AddAssetButton(object sender, RoutedEventArgs e)
         {
-            // opens the add new item window
+            // open the Add Asset window
             AddAsset AddA = new AddAsset();
             AddA.Show();
         }

@@ -12,7 +12,7 @@
             <ColumnDefinition Width="270*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox Name="runnersListBox" Margin="4" Grid.RowSpan="2" Grid.Column="1"/>
+        <ListBox Name="AssetsListBox" Margin="4" Grid.RowSpan="2" Grid.Column="1"/>
 
         <StackPanel Grid.Column="0">
             <TextBlock Margin="10,6" FontSize="40">Scottish Glen</TextBlock>
