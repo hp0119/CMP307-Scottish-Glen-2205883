@@ -18,6 +18,9 @@ using Google.Protobuf.WellKnownTypes;
 using System.Data.SqlTypes;
 using MySql.Data.Types;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Management;
+using System.Net;
+using System.Net.Sockets;
 
 namespace CMP307_Software_Engineering___Scottish_Glen
 {
@@ -33,7 +36,8 @@ namespace CMP307_Software_Engineering___Scottish_Glen
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            // call the method to get the hardware information to fill in textboxes
+            GetHardwareInfo();
         }
 
         private void AddButton_Clicked(object sender, RoutedEventArgs e)
@@ -93,7 +97,7 @@ namespace CMP307_Software_Engineering___Scottish_Glen
                 }
                 catch (Exception ex)
                 {
-                    errorTextBlock.Text = "Error adding asset. Make sure all fields are inputted correctly.\n" + ex.Message;
+                    errorTextBlock.Text = ex.Message;
                 }
                 // close database connection
                 conn.Close();
@@ -107,6 +111,65 @@ namespace CMP307_Software_Engineering___Scottish_Glen
                 additionalInfoTB.Text = null;
                 errorTextBlock.Text = null;
             }
+        }
+
+        public void GetHardwareInfo()
+        {
+            // find the system name
+            sysNameTB.Text = GetSysName();
+            // find the model and manufacturer
+            GetModelManf();
+            // find the IP address
+            ipAddressTB.Text = GetIPAddress().ToString();
+        }
+
+
+
+        // find the system name
+        public string GetSysName()
+        {
+            string sysName = Environment.MachineName;
+            return sysName;
+        }
+
+        // find the model and manufacturer
+        public void GetModelManf()
+        {
+            // set up system query to find system information
+            System.Management.SelectQuery mQuery = new System.Management.SelectQuery(@"Select * from Win32_ComputerSystem");
+
+            using (System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher(mQuery))
+            {
+                foreach (System.Management.ManagementObject mObject in objSearcher.Get())
+                {
+                    // find the model and manufacturer information
+                    mObject.Get();
+                    try
+                    {
+                        modelTB.Text = mObject["Model"].ToString();
+                        manufacturerTB.Text = mObject["Manufacturer"].ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        errorTextBlock.Text = ex.Message;
+                    }
+                }
+            }
+        }
+
+        // find the IP address
+        public IPAddress GetIPAddress()
+        {
+            IPAddress[] hostAddresses = Dns.GetHostAddresses("");
+
+            foreach (IPAddress hostAddress in hostAddresses)
+            {
+                if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return hostAddress;
+                }
+            }
+            return null;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -123,11 +186,13 @@ namespace CMP307_Software_Engineering___Scottish_Glen
 
         private void PurchaseDateCB_Checked(object sender, RoutedEventArgs e)
         {
+            // make the purchase date textbox visible
             purchaseDateTB.Visibility = Visibility.Visible;
         }
 
         private void PurchaseDateCB_Unchecked(object sender, RoutedEventArgs e)
         {
+            // make the purchase date textbox Hidden
             purchaseDateTB.Visibility = Visibility.Hidden;
         }
     }
