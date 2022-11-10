@@ -1,0 +1,10 @@
+148ddee Develop List Box for Viewing Asset Data from the Database
+6ec6dbd Merge pull request #1 from hp0119/Add-Asset-Feature
+d951dbe Develop Automatic Hardware Detection Feature for the Adding Asset Feature
+092aec6 Develop Adding Asset to Database from Adding Asset Feature
+0f7d74b Develop the Adding Asset Window into the Software Solution
+4d7664c Develop Main Window for Software Solution
+e2683e4 Update README.md
+bdcae2e Create GitHub Actions for Testing Software
+4cf71d4 Develop Software Foundation - Starting Page
+8a3b29c Initial commit
