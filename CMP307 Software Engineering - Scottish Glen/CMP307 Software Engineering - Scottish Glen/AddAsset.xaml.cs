@@ -182,6 +182,9 @@ namespace CMP307_Software_Engineering___Scottish_Glen
             ipAddressTB.Text = null;
             purchaseDateTB.Text = null;
             additionalInfoTB.Text = null;
+            // refresh the main window listbox
+            MainWindow mw = new MainWindow();
+            mw.AssetsListBox.Items.Refresh();
         }
 
         private void PurchaseDateCB_Checked(object sender, RoutedEventArgs e)
